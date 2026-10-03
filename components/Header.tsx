@@ -1,36 +1,105 @@
-import Link from "next/link";
+"use client";
 
-const links = [
-  { href: "/products", label: "Shop" },
-  { href: "/blog", label: "Blog" },
-];
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Header() {
+  const router = useRouter();
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [q, setQ] = useState("");
   const whatsapp = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`;
 
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setSearchOpen(false);
+    router.push(
+      q.trim() ? `/products?q=${encodeURIComponent(q.trim())}` : "/products"
+    );
+  }
+
+  const iconBtn =
+    "grid h-10 w-10 place-items-center rounded-full bg-[var(--blue-soft)] text-[var(--blue)]";
+
   return (
-    <header className="sticky top-0 z-10 border-b bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <Link href="/" className="text-xl font-extrabold tracking-tight">
+    <header className="sticky top-3 z-20 mx-auto max-w-6xl px-4 pt-3">
+      <div className="flex items-center justify-between rounded-3xl bg-white/90 px-5 py-3 shadow-[0_10px_30px_rgba(22,60,120,0.08)] backdrop-blur">
+        <Link href="/" className="text-lg font-extrabold tracking-tight">
           Axion Gadgets
         </Link>
 
-        <nav className="flex items-center gap-5 text-sm font-medium">
-          {links.map((l) => (
-            <Link key={l.href} href={l.href} className="hover:underline">
-              {l.label}
+        <div className="flex gap-2">
+          <button
+            aria-label="Search"
+            className={iconBtn}
+            onClick={() => {
+              setSearchOpen(!searchOpen);
+              setMenuOpen(false);
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+          </button>
+          <button
+            aria-label="Menu"
+            className={iconBtn}
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+              setSearchOpen(false);
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {searchOpen && (
+        <form
+          onSubmit={submit}
+          className="mt-2 flex gap-2 rounded-3xl bg-white p-2 shadow-[0_10px_30px_rgba(22,60,120,0.1)]"
+        >
+          <input
+            autoFocus
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search iPhone, MacBook, Samsung..."
+            className="min-w-0 flex-1 rounded-full bg-transparent px-4 py-2 outline-none"
+          />
+          <button className="btn-blue">Search</button>
+        </form>
+      )}
+
+      {menuOpen && (
+        <nav className="mt-2 grid gap-1 rounded-3xl bg-white p-3 font-semibold shadow-[0_10px_30px_rgba(22,60,120,0.1)]">
+          {[
+            ["/", "Home"],
+            ["/products", "Shop"],
+            ["/blog", "Blog"],
+          ].map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className="rounded-2xl px-4 py-3 hover:bg-[var(--blue-soft)]"
+            >
+              {label}
             </Link>
           ))}
           <a
             href={whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg bg-green-600 px-4 py-2 font-semibold text-white"
+            className="btn-blue mt-1"
           >
-            WhatsApp
+            Chat on WhatsApp
           </a>
         </nav>
-      </div>
+      )}
     </header>
   );
 }

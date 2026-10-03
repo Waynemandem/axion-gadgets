@@ -2,26 +2,84 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg: #f6f9fe;
+  --ink: #0b1220;
+  --muted: #64748b;
+  --blue: #1677ff;
+  --blue-soft: #e6f0ff;
+  --orange: #f5a524;
+  --orange-soft: #ffebcb;
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 480px at 50% -8%, #d9e9ff 0%, transparent 62%),
+    var(--bg);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.btn-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  box-shadow: 0 8px 20px rgba(22, 119, 255, 0.35);
+}
+
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #fff;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+}
+
+.soft-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(22, 60, 120, 0.08);
+}
+
+.pill-hot {
+  background: var(--orange-soft);
+  color: #e8890c;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
+}
+
+.pill-soft {
+  background: #eaeef5;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
 }
