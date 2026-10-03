@@ -58,36 +58,8 @@ export default async function Home() {
         }}
       />
 
-      <section className="pb-10 pt-12 md:pt-16">
-        <p className="eyebrow">Lagos · Delivered nationwide</p>
-        <h1 className="mt-2 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
-          Original gadgets, delivered across Nigeria.
-        </h1>
-        <p className="mt-4 max-w-xl text-lg text-[var(--muted)]">
-          iPhones, Samsung, laptops and more. Tested, with a 7-day warranty and
-          a real receipt.
-        </p>
-        <div className="mt-7 flex flex-wrap gap-3">
-          <Link href="/products" className="btn-blue">
-            Shop gadgets
-          </Link>
-          <Link href="/blog" className="btn-white">
-            Buying guides
-          </Link>
-        </div>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {["🚚 Nationwide delivery", "🛡️ 7-day warranty", "💳 Transfer, card or on delivery"].map(
-            (t) => (
-              <span key={t} className="pill-soft !bg-white !text-[var(--ink)] shadow-sm">
-                {t}
-              </span>
-            )
-          )}
-        </div>
-      </section>
-
       {trending.data && trending.data.length > 0 && (
-        <section className="pt-6">
+        <section className="pt-8">
           <SectionHeading eyebrow="Live picks" title="Trending Now" pill="Hot" hot />
           <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-6">
             {trending.data.map((p) => (
@@ -119,6 +91,39 @@ export default async function Home() {
         <div className="mt-6 text-center">
           <Link href="/products" className="btn-white">
             View all products
+          </Link>
+        </div>
+      </section>
+
+      <section className="pt-16">
+        <p className="eyebrow">Lagos · Delivered nationwide</p>
+        <h1 className="mt-2 max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">
+          Original gadgets, delivered across Nigeria.
+        </h1>
+        <p className="mt-4 max-w-xl text-lg text-[var(--muted)]">
+          iPhones, Samsung, laptops and more. Tested, with a 7-day warranty and
+          a real receipt.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {[
+            "🚚 Nationwide delivery",
+            "🛡️ 7-day warranty",
+            "💳 Transfer, card or on delivery",
+          ].map((t) => (
+            <span
+              key={t}
+              className="pill-soft !bg-white !text-[var(--ink)] shadow-sm"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link href="/products" className="btn-blue">
+            Shop gadgets
+          </Link>
+          <Link href="/blog" className="btn-white">
+            Buying guides
           </Link>
         </div>
       </section>
