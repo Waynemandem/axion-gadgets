@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 
 export default async function Admin() {
   const supabase = await createClient();
@@ -18,7 +19,23 @@ export default async function Admin() {
 
   return (
     <main className="mx-auto max-w-3xl p-6">
-      <h1 className="text-2xl font-bold mb-4">Admin: Products</h1>
+    <div className="flex items-center justify-between mb-4">
+       <h1 className="text-2xl font-bold">Admin: Products</h1>
+         <div className="flex gap-2">
+      <Link
+         href="/admin/new"
+         className="rounded-lg bg-black text-white px-4 py-2 font-semibold"
+       >
+         Add product
+      </Link>
+      <Link
+         href="/admin/posts/new"
+         className="rounded-lg border px-4 py-2 font-semibold"
+        >
+         Write post
+       </Link>
+    </div>
+    </div>
       <ul className="divide-y">
         {products?.map((p) => (
           <li key={p.id} className="py-3 flex justify-between">
