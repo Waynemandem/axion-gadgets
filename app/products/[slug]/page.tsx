@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ProductGallery from "@/components/ProductGallery";
+import AddToCartButton from "@/components/AddToCartButton";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -114,11 +115,22 @@ export default async function ProductPage({ params }: Props) {
             )}
           </div>
 
+          <AddToCartButton
+              product={{
+                 id: product.id,
+                 slug: product.slug,
+                 name: product.name,
+                 price: product.price,
+                 image: images[0] ?? null,
+                 stock: product.stock,
+                }}
+          />
+
           <a
             href={whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 flex items-center justify-center rounded-full bg-[#1FA855] p-4 text-lg font-bold text-white shadow-[0_8px_20px_rgba(31,168,85,0.35)]"
+            className="mt-3 flex items-center justify-center rounded-full bg-[#1FA855] p-4 text-lg font-bold text-white shadow-[0_8px_20px_rgba(31,168,85,0.35)]"
           >
             Order on WhatsApp
           </a>
