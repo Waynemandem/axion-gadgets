@@ -32,17 +32,27 @@ export default function Login() {
     router.refresh();
   }
 
+  const input = "w-full rounded-xl border border-slate-200 bg-white p-3";
+
   return (
-    <main className="min-h-screen grid place-items-center p-6">
-      <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-bold">Admin login</h1>
+    <main className="grid min-h-[70vh] place-items-center px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="soft-card w-full max-w-sm space-y-4 p-6"
+      >
+        <div>
+          <p className="eyebrow">Axion Gadgets</p>
+          <h1 className="mt-1 text-3xl font-extrabold tracking-tight">
+            Admin login
+          </h1>
+        </div>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full rounded-lg border p-3"
+          className={input}
         />
         <input
           type="password"
@@ -50,13 +60,10 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full rounded-lg border p-3"
+          className={input}
         />
         {error && <p className="text-sm text-red-600">{error}</p>}
-        <button
-          disabled={loading}
-          className="w-full rounded-lg bg-black text-white p-3 font-semibold disabled:opacity-50"
-        >
+        <button disabled={loading} className="btn-blue w-full disabled:opacity-50">
           {loading ? "Signing in..." : "Sign in"}
         </button>
       </form>

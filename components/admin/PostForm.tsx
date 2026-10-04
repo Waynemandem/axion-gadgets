@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
+import { compressImage } from "@/lib/compressImage";
 
 export type PostRow = {
   id: string;
@@ -67,11 +68,12 @@ export default function PostForm({ post }: { post?: PostRow }) {
     let toDelete = oldCover;
 
     if (file) {
-      const safeName = file.name.replace(/[^a-zA-Z0-9.]+/g, "-");
-      const path = `blog/${slug}/${Date.now()}-${safeName}`;
-      const { error: uploadError } = await supabase.storage
-        .from(BUCKET)
-        .upload(path, file);
+  const compressed = await compressImage(file);
+  const safeName = compressed.name.replace(/[^a-zA-Z0-9.]+/g, "-");
+  const path = `blog/${slug}/${Date.now()}-${safeName}`;
+  const { error: uploadError } = await supabase.storage
+    .from(BUCKET)
+    .upload(path, compressed);
 
       if (uploadError) {
         setError(`Cover upload failed: ${uploadError.message}`);

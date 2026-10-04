@@ -56,7 +56,7 @@ export default async function BlogPost({ params }: Props) {
   };
 
   return (
-    <main className="mx-auto max-w-3xl p-6">
+    <main className="mx-auto max-w-3xl px-4 pb-8 pt-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -64,20 +64,22 @@ export default async function BlogPost({ params }: Props) {
         }}
       />
 
-      <Link href="/blog" className="text-sm underline">
-        ← All posts
+      <Link href="/blog" className="btn-white !px-4 !py-2 text-sm">
+        ← All guides
       </Link>
 
-      <article className="mt-4">
-        <p className="text-sm opacity-60">
+      <article className="mt-6">
+        <p className="eyebrow">
           {new Date(post.created_at).toLocaleDateString("en-NG", {
             dateStyle: "long",
           })}
         </p>
-        <h1 className="mt-1 text-4xl font-bold leading-tight">{post.title}</h1>
+        <h1 className="mt-2 text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">
+          {post.title}
+        </h1>
 
         {post.cover_image && (
-          <div className="relative mt-6 aspect-video overflow-hidden rounded-xl">
+          <div className="soft-card relative mt-6 aspect-video overflow-hidden bg-[var(--blue-soft)]">
             <Image
               src={post.cover_image}
               alt={post.title}
@@ -89,20 +91,19 @@ export default async function BlogPost({ params }: Props) {
           </div>
         )}
 
-        <div className="prose prose-lg mt-8 max-w-none">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
+        <div className="soft-card mt-6 p-6 md:p-8">
+          <div className="prose prose-lg max-w-none prose-headings:font-extrabold prose-a:text-[var(--blue)]">
+            <ReactMarkdown>{post.content}</ReactMarkdown>
+          </div>
         </div>
       </article>
 
-      <div className="mt-12 rounded-xl border p-5">
-        <p className="font-semibold">Looking to buy?</p>
-        <p className="mt-1 text-sm opacity-80">
+      <div className="soft-card mt-8 p-6">
+        <p className="eyebrow">Ready to buy?</p>
+        <p className="mt-1 text-xl font-extrabold">
           Original devices, 7-day warranty, delivery across Nigeria.
         </p>
-        <Link
-          href="/products"
-          className="mt-3 inline-block rounded-lg bg-black px-4 py-2 font-semibold text-white"
-        >
+        <Link href="/products" className="btn-blue mt-4">
           Shop gadgets
         </Link>
       </div>
