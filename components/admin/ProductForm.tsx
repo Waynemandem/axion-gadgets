@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
+import { compressImage } from  "@/lib/compressImage";
 
 export type ProductRow = {
   id: string;
@@ -87,7 +88,8 @@ export default function ProductForm({ product }: { product?: ProductRow }) {
     const supabase = createClient();
     const newUrls: string[] = [];
 
-    for (const file of files) {
+    for (const original of files) {
+      const file = await compressImage(original);
       const safeName = file.name.replace(/[^a-zA-Z0-9.]+/g, "-");
       const path = `${slug}/${Date.now()}-${safeName}`;
       const { error: uploadError } = await supabase.storage
