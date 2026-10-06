@@ -33,7 +33,7 @@ export default function ProductCard({
   return (
     <Link
       href={`/products/${p.slug}`}
-      className={`soft-card block overflow-hidden transition hover:-translate-y-0.5 ${className}`}
+      className={`soft-card block overflow-hidden transition active:scale-[0.98] hover:-translate-y-0.5 ${className}`}
     >
       <div className="relative aspect-square bg-[var(--blue-soft)]">
         {p.images?.[0] ? (
@@ -62,12 +62,9 @@ export default function ProductCard({
         <h3 className="line-clamp-2 min-h-[2.6rem] font-bold leading-snug">
           {p.name}
         </h3>
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <p className="font-extrabold text-[var(--blue)]">
-            ₦{p.price.toLocaleString("en-NG")}
-          </p>
-          <span className="btn-blue !px-4 !py-2 text-sm">View</span>
-        </div>
+        <p className="mt-2 text-lg font-extrabold text-[var(--blue)]">
+          ₦{p.price.toLocaleString("en-NG")}
+        </p>
       </div>
     </Link>
   );
