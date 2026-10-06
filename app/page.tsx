@@ -108,7 +108,7 @@ export default async function Home() {
           {[
             "🚚 Nationwide delivery",
             "🛡️ 7-day warranty",
-            "💳 Transfer, card or on delivery",
+            "💳 Pay securely online",
           ].map((t) => (
             <span
               key={t}

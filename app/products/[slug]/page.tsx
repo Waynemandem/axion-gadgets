@@ -137,9 +137,9 @@ export default async function ProductPage({ params }: Props) {
 
           <div className="mt-5 flex flex-wrap gap-2">
             {[
-              "🚚 Delivery across Nigeria",
+              "🚚 Delivery available or pickup in Ikeja",
               "🛡️ 7-day warranty",
-              "💳 Transfer, card or on delivery (Lagos)",
+              "💳 Pay securely online with Paystack",
             ].map((t) => (
               <span
                 key={t}

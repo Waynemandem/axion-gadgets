@@ -37,8 +37,8 @@ export default function Footer() {
           <p className="eyebrow">Our promise</p>
           <ul className="mt-3 space-y-2 text-[var(--muted)]">
             <li>🛡️ 7-day warranty on every device</li>
-            <li>🚚 Delivery nationwide</li>
-            <li>💳 Transfer, card or pay on delivery (Lagos)</li>
+            <li>🚚 Delivery available or pickup in Ikeja</li>
+            <li>💳 Pay securely online with Paystack</li>
           </ul>
         </div>
       </div>
