@@ -29,6 +29,13 @@ export default async function Admin() {
 
   return (
     <main className="mx-auto max-w-4xl space-y-12 px-4 py-8">
+      <Link
+  href="/admin/orders"
+  className="soft-card flex items-center justify-between p-4 font-extrabold"
+>
+  <span>📦 Orders</span>
+  <span className="text-[var(--blue)]">View →</span>
+</Link>
       <section>
         <div className="mb-4 flex items-center justify-between">
           <h1 className="text-3xl font-extrabold tracking-tight">Products</h1>
