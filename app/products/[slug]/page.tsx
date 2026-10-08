@@ -56,6 +56,12 @@ export default async function ProductPage({ params }: Props) {
     )}). Is it available?`
   )}`;
 
+  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://axion-gadgets.vercel.app/";
+const shareText = `${product.name} for ₦${product.price.toLocaleString(
+  "en-NG"
+)} at Axion Gadgets\n${site}/products/${product.slug}`;
+const shareLink = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -158,6 +164,15 @@ export default async function ProductPage({ params }: Props) {
               </p>
             </div>
           )}
+
+           <a
+                      href={shareLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-white mt-3 w-full !py-3"
+                      >
+                          Share on WhatsApp
+                        </a>
 
           <details className="soft-card mt-4 p-5">
             <summary className="cursor-pointer font-extrabold">

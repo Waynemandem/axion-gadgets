@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import RowControls from "@/components/admin/RowControls";
+import StatusShareButton from "@/components/admin/StatusShareButton";
 
 export default async function Admin() {
   const supabase = await createClient();
@@ -15,7 +16,7 @@ export default async function Admin() {
     await Promise.all([
       supabase
         .from("products")
-        .select("id, name, slug, price, stock, published")
+        .select("id, name, slug, price, stock, published, condition, images")
         .order("created_at", { ascending: false }),
       supabase
         .from("posts")
@@ -83,6 +84,20 @@ export default async function Admin() {
                   published={p.published}
                   stock={p.stock}
                 />
+
+                {p.published && (
+  <div className="mt-2">
+    <StatusShareButton
+      product={{
+        name: p.name,
+        slug: p.slug,
+        price: p.price,
+        condition: p.condition,
+        image: p.images?.[0] ?? null,
+      }}
+    />
+  </div>
+)}
               </div>
             </li>
           ))}
