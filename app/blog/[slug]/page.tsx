@@ -9,14 +9,16 @@ type Props = { params: Promise<{ slug: string }> };
 
 async function getPost(slug: string) {
   const supabase = await createClient();
-  const { data } = await supabase
-    .from("posts")
+  const { data, error } = await supabase
+    .from("products")
     .select("*")
     .eq("slug", slug)
     .eq("published", true)
     .maybeSingle();
+  if (error) console.error("getProduct failed:", slug, error.message);
   return data;
 }
+
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

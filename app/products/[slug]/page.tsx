@@ -9,12 +9,13 @@ type Props = { params: Promise<{ slug: string }> };
 
 async function getProduct(slug: string) {
   const supabase = await createClient();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("products")
     .select("*")
     .eq("slug", slug)
     .eq("published", true)
     .maybeSingle();
+  if (error) console.error("getProduct failed:", slug, error.message);
   return data;
 }
 
