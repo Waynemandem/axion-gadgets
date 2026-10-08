@@ -25,7 +25,7 @@ export default function Header() {
     "grid h-10 w-10 place-items-center rounded-full bg-[var(--blue-soft)] text-[var(--blue)]";
 
   return (
-    <header className="sticky top-3 z-20 mx-auto max-w-6xl px-4 pt-3">
+    <header className="sticky top-0 z-20 mx-auto max-w-6xl px-4 pt-2">
       <div className="flex items-center justify-between rounded-3xl bg-white/90 px-5 py-3 shadow-[0_10px_30px_rgba(22,60,120,0.08)] backdrop-blur">
         <Link href="/" className="text-lg font-extrabold tracking-tight">
           Axion Gadgets
