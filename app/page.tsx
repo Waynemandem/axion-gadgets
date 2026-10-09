@@ -19,19 +19,19 @@ export default async function Home() {
       .eq("published", true)
       .gt("stock", 0)
       .order("created_at", { ascending: false })
-      .limit(6),
+      .limit(30),
     supabase
       .from("products")
       .select(fields, { count: "exact" })
       .eq("published", true)
       .order("created_at", { ascending: false })
-      .limit(50),
+      .limit(39),
     supabase
       .from("posts")
       .select("id, title, slug, excerpt, cover_image")
       .eq("published", true)
       .order("created_at", { ascending: false })
-      .limit(3),
+      .limit(9),
   ]);
 
   const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
