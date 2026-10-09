@@ -25,7 +25,7 @@ export default async function Home() {
       .select(fields, { count: "exact" })
       .eq("published", true)
       .order("created_at", { ascending: false })
-      .limit(8),
+      .limit(50),
     supabase
       .from("posts")
       .select("id, title, slug, excerpt, cover_image")
