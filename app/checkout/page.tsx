@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/lib/cart";
-import { NIGERIAN_STATES, PICKUP_NOTE, deliveryFee } from "@/lib/delivery";
 import SectionHeading from "@/components/SectionHeading";
+import { DELIVERY_ZONES, PICKUP_NOTE, deliveryFee } from "@/lib/delivery";
 
 export default function Checkout() {
   const { items, subtotal, ready } = useCart();
@@ -35,7 +35,7 @@ export default function Checkout() {
     );
   }
 
-  const fee = fulfilment === "delivery" ? deliveryFee(state) : 0;
+  const fee = fulfilment === "delivery" ? deliveryFee(state) ?? 0 : 0;
   const total = subtotal + fee;
 
   async function handleSubmit(e: React.FormEvent) {
@@ -149,10 +149,13 @@ export default function Checkout() {
                 <div>
                   <label className={label}>State</label>
                   <select className={input} value={state} onChange={(e) => setState(e.target.value)}>
-                    {NIGERIAN_STATES.map((s) => (
-                      <option key={s}>{s}</option>
+                    {DELIVERY_ZONES.map((z) => (
+                      <option key={z.state} value={z.state}>{z.label}</option>
                     ))}
                   </select>
+                  <p className="mt-1 text-xs text-[var(--muted)]">
+                    Not in these areas? Choose pickup or message us on WhatsApp.
+                  </p>  
                 </div>
               </div>
             </>
@@ -192,6 +195,13 @@ export default function Checkout() {
             You pay in full online with Paystack (card, bank transfer or
             USSD). After payment we confirm your device and contact you on
             WhatsApp. If we can&apos;t get it, you&apos;re refunded.
+          </p>    
+          <p className="mt-2 text-xs text-[var(--muted)]">
+             By paying you agree to our{" "}
+           <Link href="/terms" className="underline">
+             terms and refund policy
+           </Link>
+           .
           </p>
 
           {error && <p className="mt-3 text-sm font-semibold text-red-600">{error}</p>}

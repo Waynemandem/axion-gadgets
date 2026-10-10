@@ -41,7 +41,7 @@ export default async function Home() {
     name: "Axion Gadgets",
     url: site,
     description: "Phones, laptops and accessories in Nigeria",
-    areaServed: "NG",
+    areaServed: ["Lagos", "Ogun", "Ibadan"],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Lagos",
@@ -96,9 +96,9 @@ export default async function Home() {
       </section>
 
       <section className="pt-16">
-        <p className="eyebrow">Lagos · Delivered nationwide</p>
+        <p className="eyebrow">Delivery in Lagos, Ogun & Ibadan · Pickup in Ikeja</p>
         <h1 className="mt-2 max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">
-          Original gadgets, delivered across Nigeria.
+          Original gadgets, delivered in Lagos, Ogun and Ibadan.
         </h1>
         <p className="mt-4 max-w-xl text-lg text-[var(--muted)]">
           iPhones, Samsung, laptops and more. Tested, with a 7-day warranty and

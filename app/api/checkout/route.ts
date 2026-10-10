@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { deliveryFee } from "@/lib/delivery";
+import { notifyOrder } from "@/lib/notify";
 
 type Body = {
   items?: { id: number | string; quantity: number }[];
@@ -77,7 +78,16 @@ export async function POST(req: Request) {
     lines.push({ product_id: id, name: p.name, price: p.price, quantity: qty });
   }
 
-  const fee = fulfilment === "delivery" ? deliveryFee(state) : 0;
+  let fee = 0;
+if (fulfilment === "delivery") {
+  const zoneFee = deliveryFee(state);
+  if (zoneFee === null) {
+    return fail(
+      "Sorry, we don't deliver to that area yet. Choose pickup or message us on WhatsApp."
+    );
+  }
+  fee = zoneFee;
+}
   const total = subtotal + fee;
   const reference = `AXG-${Date.now().toString(36).toUpperCase()}-${crypto
     .randomUUID()
@@ -138,5 +148,6 @@ export async function POST(req: Request) {
     return fail("Could not start the payment. Please try again.", 502);
   }
 
+  await notifyOrder(order.id, "started");
   return NextResponse.json({ url: json.data.authorization_url });
 }

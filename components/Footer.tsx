@@ -25,6 +25,9 @@ export default function Footer() {
             WhatsApp
           </a>
         </nav>
+   
+       <Link href="/terms">Terms</Link>
+
       </div>
 
       <p className="mt-3 text-center text-xs text-[var(--muted)]">

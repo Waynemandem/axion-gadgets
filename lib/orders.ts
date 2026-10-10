@@ -1,4 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import { notifyOrder } from "@/lib/notify";
 
 export type OrderSummary = {
   reference: string;
@@ -94,6 +95,7 @@ export async function verifyOrder(reference: string): Promise<VerifyResult> {
           });
         }
       }
+      await notifyOrder(order.id, "paid");
     }
 
     return { state: "paid", order: { ...summary, status: "paid" } };

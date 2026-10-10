@@ -103,7 +103,7 @@ export default async function BlogPost({ params }: Props) {
       <div className="soft-card mt-8 p-6">
         <p className="eyebrow">Ready to buy?</p>
         <p className="mt-1 text-xl font-extrabold">
-          Original devices, 7-day warranty, delivery across Nigeria.
+          Original devices, 7-day warranty, delivery in Lagos, Ogun and Ibadan.
         </p>
         <Link href="/products" className="btn-blue mt-4">
           Shop gadgets

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Axion Gadgets",
   },
   description:
-    "Buy original iPhones, Samsung phones, MacBooks and laptops in Nigeria. 7-day warranty and delivery nationwide.",
+    "Buy original iPhones, Samsung phones, MacBooks and laptops in Nigeria. 7-day warranty and delivery in Lagos, Ogun and Ibadan, or pickup in Ikeja.",
 };
 
 export default function RootLayout({
