@@ -40,7 +40,7 @@ export async function notifyOrder(orderId: string, kind: "started" | "paid") {
       .maybeSingle();
     if (!o) return;
 
-    const site = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+    const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/+$/, "");
     const items = (o.order_items ?? [])
       .map(
         (i: { name: string; price: number; quantity: number }) =>
