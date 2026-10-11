@@ -15,7 +15,7 @@ type Product = {
 const DAY = 24 * 60 * 60 * 1000;
 
 function badgeFor(p: Product) {
-  if (p.stock === 0) return "SOLD OUT";
+  if (p.stock <= 0) return "SOLD";
   if (p.condition === "used") return "USED";
   if (Date.now() - new Date(p.created_at).getTime() < 14 * DAY) return "NEW";
   return null;
@@ -42,7 +42,7 @@ export default function ProductCard({
             alt={p.name}
             fill
             sizes="(max-width: 768px) 80vw, 25vw"
-            className="object-cover"
+            className={`object-cover ${p.stock <= 0 ? "grayscale opacity-70" : ""}`}
           />
         ) : (
           <div className="grid h-full place-items-center text-6xl">📱</div>
@@ -50,7 +50,7 @@ export default function ProductCard({
         {badge && (
           <span
             className={`absolute left-3 top-3 rounded-full px-3 py-1 text-[0.7rem] font-extrabold tracking-wide text-white ${
-              badge === "SOLD OUT" ? "bg-slate-500" : "bg-[var(--orange)]"
+              badge === "SOLD" ? "bg-slate-500" : "bg-[var(--orange)]"
             }`}
           >
             {badge}

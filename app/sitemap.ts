@@ -10,7 +10,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     supabase
       .from("posts")
       .select("slug, created_at, updated_at")
-      .eq("published", true),
+      .eq("published", true)
+      .gt("stock", 0)
   ]);
 
   return [

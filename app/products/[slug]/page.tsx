@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ProductGallery from "@/components/ProductGallery";
 import AddToCartButton from "@/components/AddToCartButton";
+import ProductCard from "@/components/ProductCard";
+
+
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -34,6 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${product.name} Price in Nigeria (${price})`,
     description,
     alternates: { canonical: `/products/${product.slug}` },
+    robots: product.stock <= 0 ? { index: false, follow: true } : undefined,
     openGraph: {
       title: product.name,
       description,
@@ -48,6 +52,19 @@ export default async function ProductPage({ params }: Props) {
   if (!product) notFound();
 
   const inStock = product.stock > 0;
+  let similar: any[] = [];
+if (!inStock) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("products")
+    .select("id, name, slug, price, condition, stock, images, created_at")
+    .eq("published", true)
+    .eq("category", product.category)
+    .gt("stock", 0)
+    .order("created_at", { ascending: false })
+    .limit(4);
+  similar = data ?? [];
+}
   const images: string[] = product.images ?? [];
   const whatsapp = `https://wa.me/${
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
@@ -111,6 +128,20 @@ const shareLink = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
           <p className="mt-4 text-4xl font-extrabold text-[var(--blue)]">
             ₦{product.price.toLocaleString("en-NG")}
           </p>
+
+          {!inStock && (
+            <div className="mt-3 rounded-2xl bg-slate-800 px-4 py-3 text-center font-extrabold tracking-wide text-white">
+                SOLD OUT
+             {product.sold_at && (
+               <span className="block text-xs font-medium opacity-80">
+                  Sold{" "}
+                {new Date(product.sold_at).toLocaleDateString("en-NG", {
+                   dateStyle: "medium",
+                  })}
+              </span>
+               )}
+            </div>
+                )}
 
           <div className="mt-3">
             {inStock ? (
@@ -202,6 +233,18 @@ const shareLink = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
           </details>
         </div>
       </div>
+        {similar.length > 0 && (
+          <section className="mt-12">
+          <p className="eyebrow">Still available</p>
+          <h2 className="mb-4 mt-1 text-2xl font-extrabold">Similar gadgets</h2>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        {similar.map((p) => (
+           <ProductCard key={p.id} product={p} />
+           ))}
+       </div>
+     </section>
+      )}
+
     </main>
   );
 }

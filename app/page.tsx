@@ -12,18 +12,18 @@ const fields = "id, name, slug, price, condition, stock, images, created_at";
 export default async function Home() {
   const supabase = await createClient();
 
-  const [trending, all, blog] = await Promise.all([
+  const [trending, all, blog, sold] = await Promise.all([
     supabase
       .from("products")
       .select(fields)
       .eq("published", true)
-      .gt("stock", 0)
       .order("created_at", { ascending: false })
       .limit(30),
     supabase
       .from("products")
       .select(fields, { count: "exact" })
       .eq("published", true)
+      .gt("stock", 0)
       .order("created_at", { ascending: false })
       .limit(39),
     supabase
@@ -32,6 +32,13 @@ export default async function Home() {
       .eq("published", true)
       .order("created_at", { ascending: false })
       .limit(9),
+    supabase
+      .from("products")
+      .select(fields)
+      .eq("published", true)
+      .lte("stock", 0)
+      .order("sold_at", { ascending: false, nullsFirst: false })
+      .limit(8),  
   ]);
 
   const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -127,6 +134,22 @@ export default async function Home() {
           </Link>
         </div>
       </section>
+
+      {sold.data && sold.data.length > 0 && (
+       <section className="pt-14">
+        <SectionHeading eyebrow="Proof" title="Recently Sold" pill="✅ Sold" />
+         <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 pb-4">
+           {sold.data.map((p) => (
+            <ProductCard
+             key={p.id}
+             product={p}
+             className="w-[60%] shrink-0 sm:w-[220px]"
+            />
+           ))}
+        </div>
+      </section>
+        )}
+
 
       {blog.data && blog.data.length > 0 && (
         <section className="pt-14">

@@ -64,7 +64,8 @@ export default async function Products({
   const { data: catRows } = await supabase
     .from("products")
     .select("category")
-    .eq("published", true);
+    .eq("published", true)
+    .gt("stock", 0);
   const categories = [
     ...new Set((catRows ?? []).map((r) => r.category).filter(Boolean)),
   ].sort() as string[];
@@ -76,6 +77,7 @@ export default async function Products({
       count: "exact",
     })
     .eq("published", true)
+    .gt("stock", 0)
     .order("created_at", { ascending: false })
     .range(from, from + PAGE_SIZE - 1);
 
