@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/lib/cart";
-import { Analytics } from "@vercel/analytics/next"
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -29,11 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${jakarta.variable} antialiased`}>
-       <CartProvider> 
-        <Header />
-        {children}
-        <Footer />
-       </CartProvider> 
+        <CartProvider>
+          <Header />
+          {children}
+          <Footer />
+        </CartProvider>
+        <Analytics />
       </body>
     </html>
   );
