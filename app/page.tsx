@@ -5,7 +5,24 @@ import { createClient } from "@/lib/supabase/server";
 import ProductCard from "@/components/ProductCard";
 import SectionHeading from "@/components/SectionHeading";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+
+export const metadata: Metadata = {
+  title: "Buy Original Phones & Laptops in Nigeria",
+  description:
+    "Shop original iPhones, Samsung phones, MacBooks and laptops at Axion Gadgets. Get tested gadgets, competitive prices, a 7-day warranty and delivery in Lagos, Ogun and Ibadan. Pickup in Ikeja.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Buy Original Phones & Laptops in Nigeria | Axion Gadgets",
+    description:
+      "Find original phones, laptops and accessories at Axion Gadgets. Shop online with secure payment and convenient delivery.",
+    url: "/",
+    type: "website",
+  },
+};
+
+
 
 const fields = "id, name, slug, price, condition, stock, images, created_at";
 
