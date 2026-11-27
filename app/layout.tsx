@@ -60,3 +60,21 @@ export const metadata: Metadata = {
     },
   },
 };
+
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <body className={`${jakarta.variable} antialiased`}>
+        <CartProvider>
+          <Header />
+          {children}
+          <Footer />
+        </CartProvider>
+        <Analytics />
+      </body>
+    </html>
+  );
+}

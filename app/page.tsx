@@ -58,7 +58,7 @@ export default async function Home() {
       .limit(8),  
   ]);
 
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://axiongadget.vercel.app";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Store",
@@ -73,6 +73,13 @@ export default async function Home() {
     },
   };
 
+
+
+
+
+
+
+
   return (
     <main className="mx-auto max-w-6xl px-4 pb-8">
       <script
@@ -86,14 +93,14 @@ export default async function Home() {
         <section className="pt-8">
           <SectionHeading eyebrow="Live picks" title="Trending Now" pill="Hot" hot />
           <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-6">
-            {trending.data.map((p) => (
-              <ProductCard
-                key={p.id}
-                product={p}
-                className="w-[78%] shrink-0 snap-start sm:w-[300px]"
-              />
-            ))}
-          </div>
+          {trending.data.map((p, index) => (
+  <ProductCard
+    key={p.id}
+    product={p}
+    priority={index === 0}
+    className="w-[78%] shrink-0 snap-start sm:w-[300px]"
+  />
+))}          </div>
         </section>
       )}
 

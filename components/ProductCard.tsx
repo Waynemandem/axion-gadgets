@@ -24,11 +24,13 @@ function badgeFor(p: Product) {
 export default function ProductCard({
   product: p,
   className = "",
+  priority = false,
 }: {
   product: Product;
   className?: string;
+  priority?: boolean;
 }) {
-  const badge = badgeFor(p);
+    const badge = badgeFor(p);
 
   return (
     <Link
@@ -38,13 +40,16 @@ export default function ProductCard({
       <div className="relative aspect-square bg-[var(--blue-soft)]">
         {p.images?.[0] ? (
           <Image
-            src={p.images[0]}
-            alt={p.name}
-            fill
-            sizes="(max-width: 768px) 80vw, 25vw"
-            className={`object-cover ${p.stock <= 0 ? "grayscale opacity-70" : ""}`}
-          />
-        ) : (
+          src={p.images[0]}
+          alt={`${p.name} - ${p.condition === "used" ? "used" : "new"} gadget at Axion Gadgets`}
+          fill
+          priority={priority}
+          loading={priority ? "eager" : "lazy"}
+          sizes="(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 280px"
+          className={`object-cover ${
+            p.stock <= 0 ? "grayscale opacity-70" : ""
+          }`}
+         />        ) : (
           <div className="grid h-full place-items-center text-6xl">📱</div>
         )}
         {badge && (
